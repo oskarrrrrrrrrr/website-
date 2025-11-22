@@ -5,8 +5,6 @@
   const prevBtn = document.getElementById('prev');
   const nextBtn = document.getElementById('next');
   const dotsEl  = document.getElementById('dots');
-  const toggleBtn = document.getElementById('carousel-toggle');
-  const statusEl = document.getElementById('carousel-status');
   const logicalSlides = track ? Array.from(track.children) : [];
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -33,7 +31,6 @@
   let slideWidth = 0;
   let resizeObserver = null;
   const animationsEnabled = !prefersReduced;
-  let autoPaused = prefersReduced;
 
   function computeWidth() {
     const referenceSlide = logicalSlides[0];
@@ -49,7 +46,6 @@
       b.type = 'button';
       b.setAttribute('aria-label', `Gehe zu Folie ${i + 1}`);
       b.setAttribute('aria-current', i === 0);
-      b.setAttribute('aria-pressed', i === 0);
       b.addEventListener('click', () => goToLogical(i));
       dotsEl.appendChild(b);
     });
@@ -57,11 +53,7 @@
 
   function updateDots(activeIndex = normalize(index)) {
     if (!dotsEl) return;
-    [...dotsEl.children].forEach((d, di) => {
-      const isActive = di === activeIndex;
-      d.setAttribute('aria-current', isActive);
-      d.setAttribute('aria-pressed', isActive);
-    });
+    [...dotsEl.children].forEach((d, di) => d.setAttribute('aria-current', di === activeIndex));
   }
 
   function goToLogical(targetIndex, options) {
@@ -153,7 +145,6 @@
     applySlideState(targetLogical, prevLogical, shouldAnimate);
     setTrackPosition(index, shouldAnimate);
     updateDots(targetLogical);
-    announceSlide(targetLogical);
   }
 
   function adjustIndexWithoutAnimation(rawIndex, minIndex, maxIndex) {
@@ -221,7 +212,7 @@
   }
 
   function startAuto() {
-    if (prefersReduced || !hasMultipleSlides || autoPaused) return;
+    if (prefersReduced || !hasMultipleSlides) return;
     stopAuto();
     autoPlayId = setInterval(() => go(index + 1), 5000);
   }
@@ -234,42 +225,10 @@
   carousel.addEventListener('focusin',  stopAuto);
   carousel.addEventListener('focusout', startAuto);
 
-  function updateToggleButton() {
-    if (!toggleBtn) return;
-    toggleBtn.setAttribute('aria-pressed', autoPaused);
-    toggleBtn.textContent = autoPaused
-      ? 'Automatische Wiedergabe starten'
-      : 'Pause automatische Wiedergabe';
-  }
-
-  function announceSlide(logicalIndex) {
-    if (!statusEl || logicalSlides.length === 0) return;
-    const slide = logicalSlides[logicalIndex];
-    if (!slide) return;
-    const title = slide.querySelector('b')?.textContent?.trim();
-    const desc = slide.querySelector('small')?.textContent?.trim();
-    const messageParts = [`Folie ${logicalIndex + 1} von ${logicalSlides.length}`];
-    if (title) messageParts.push(title);
-    if (desc) messageParts.push(desc);
-    statusEl.textContent = messageParts.join(': ');
-  }
-
-  toggleBtn && toggleBtn.addEventListener('click', () => {
-    autoPaused = !autoPaused;
-    if (autoPaused) {
-      stopAuto();
-    } else {
-      startAuto();
-    }
-    updateToggleButton();
-  });
-
   renderDots();
   computeWidth();
   logicalSlides.forEach((slide, idx) => slide.classList.toggle('is-active', idx === 0));
   go(index, { animate: false });
-  announceSlide(normalize(index));
-  updateToggleButton();
   startAuto();
 
   function syncToWidth() {
