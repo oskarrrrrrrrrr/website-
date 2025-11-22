@@ -1,0 +1,39 @@
+:root {
+  /* Primäre Akzente & Grundfarben */
+  --accent: #a2e378; /* Hauptakzent für Buttons, CTA, Sliderpunkte */
+  --accent-2: #FFE7EF; /* Heller Akzent für Badges, Hoverflächen */
+  --accent-3: #e40521; /* Zusätzlicher Akzent für weiche Übergänge */
+  --ink: #24303A; /* Standardtext auf hellem Hintergrund */
+  --ink-soft: #5B6773; /* Sekundärtext, Beschreibungen */
+  --bg: #ffffff; /* Seitenhintergrund */
+  --bg-soft: #ffffff; /* Alternative Hintergründe (z.B. Footer) */
+  --success: #24B47E; /* Erfolgsmeldungen oder positive Hinweise */
+
+  /* Textkontraste auf speziellen Flächen */
+  --text-on-accent: #111111; /* Text auf Akzentflächen */
+  --text-on-soft: #333333; /* Text auf Pastell- / Badge-Flächen */
+  --text-on-dark: #ffffff; /* Text auf dunklen Buttons */
+
+  /* Flächen & Rahmen */
+  --surface-bright: #ffffff; /* Karten, Formularfelder, Pillenbuttons */
+  --border-soft: rgba(0,0,0,.06); /* Card-Ränder, Navigation, Footer */
+  --border-pill: rgba(0,0,0,.08); /* Pillenbuttons, Quick-Actions */
+  --border-strong: rgba(0,0,0,.12); /* Formularfelder */
+
+  /* Overlays & transparente Flächen */
+  --overlay-hero: rgba(255,255,255,.72); /* Textblasen im Hero */
+  --overlay-arrow: rgba(255,255,255,.95); /* Carousel-Pfeile */
+  --overlay-dots: rgba(255,255,255,.9); /* Carousel-Punkte */
+  --overlay-bubble-mobile: rgba(255,255,255,.68); /* Mobile Hero-Bubbles */
+
+  /* Verläufe für Bildüberlagerungen */
+  --gradient-dim: rgba(0, 0, 0, 0.08); /* Dunklere Seite des Gradients */
+  --gradient-clear: rgba(0, 0, 0, 0); /* Ausblendende Seite des Gradients */
+
+  /* Schatten & Fokus */
+  --shadow-sm: 0 4px 14px rgba(24, 24, 27, 0.06); /* leichte Schatten (Buttons, Karten) */
+  --shadow-md: 0 14px 36px rgba(24, 24, 27, 0.10); /* mittlere Schatten (Carousel, CTA) */
+  --shadow-lg: 0 22px 60px rgba(24, 24, 27, 0.12); /* große Schatten (Hero-Karte) */
+  --shadow-highlight: 0 10px 24px rgba(0,0,0,.12); /* Bubbles auf Fotos */
+  --ring: 0 0 0 8px rgba(252, 186, 203, .28); /* Fokus-Ring für Buttons */
+}
